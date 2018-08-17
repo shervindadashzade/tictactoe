@@ -90,6 +90,38 @@ def decision(root):
 				break
 			break
 
+playground = plane()
+
+print(" You Are O and your Oppenent(Computer) Is X")
+print("--------------house numbers --------------")
+print("     1       |       2      |        3    ")
+print("------------------------------------------")
+print("     4       |       5      |        6    ")
+print("------------------------------------------")
+print("     7       |       8      |        9    ")
+print("------------------------------------------")
+print(" ")
+fpstart = int(raw_input("Enter Who First Start 1:Computer 2:you : "))
+if(fpstart == 1):
+	fpstart = X
+if(fpstart == 2):
+	fpstart = O
+if(fpstart == X):
+	playground.homes[4] = X
+	playground.show()
+while True:
+	place = int(raw_input("Is Your Turn Select Place:"))
+	place = place-1
+	if(place>9):
+			print("WTF? Select Smaller ")
+	else:
+		if(playground.homes[place]!= EMP):
+			print("This House Is Full Select Another")
+		else:
+			playground.homes[place] = O
+			playground.show()
+
+
 
 
 """
