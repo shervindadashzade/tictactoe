@@ -35,6 +35,7 @@ class branch():
 		self.data = NULL
 		self.father = NULL
 		self.lvl = NULL
+		self.score = 0
 
 
 
@@ -42,6 +43,12 @@ playground = plane()
 
 root = branch()
 root.data = playground
+
+def addscore(node):
+	if(node.father == root):
+		node.score = node.score + 1
+	else:
+		addscore(node.father)
 
 def makeTree(root,lvl):
 	for i in range(0,9):
@@ -63,9 +70,19 @@ def makeTree(root,lvl):
 			root.childrens.append(node)
 			#Ok
 	for x in range(0,len(root.childrens)):
-		makeTree(root.childrens[x],lvl+1)
+		if(root.childrens[x].data.IsWin() !=0):
+			if(root.childrens[x].data.IsWin() == X):
+				addscore(root.childrens[x])
+		else:
+			makeTree(root.childrens[x],lvl+1)
 
 
 
 
+
+root.data.homes[5] = X
+root.data.homes[4] = O
 makeTree(root,0)
+for i in range(0,9):
+	print(root.childrens[i].score)
+
