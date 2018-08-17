@@ -53,11 +53,11 @@ playground = plane()
 root = branch()
 root.data = playground
 
-def addscore(node):
+def addscore(node,sc):
 	if(node.father == root):
-		node.score = node.score + 1
+		node.score = node.score + sc
 	else:
-		addscore(node.father)
+		addscore(node.father,sc)
 
 def makeTree(root,lvl):
 	for i in range(0,9):
@@ -81,7 +81,10 @@ def makeTree(root,lvl):
 	for x in range(0,len(root.childrens)):
 		if(root.childrens[x].data.IsWin() !=0):
 			if(root.childrens[x].data.IsWin() == X):
-				addscore(root.childrens[x])
+				addscore(root.childrens[x],1)
+			elif(root.childrens[x].data.IsWin() == O):
+				addscore(root.childrens[x],-1)
+
 		else:
 			makeTree(root.childrens[x],lvl+1)
 
@@ -140,10 +143,21 @@ while True:
 		else:
 			root.data.homes[place] = O
 			root.data.show()
-			print("Computers Turn Let him thinking...")
-			makeTree(root,0)
-			decision(root)
-			root.data.show()
-			root.childrens = []
+			if(root.data.IsWin() != 0):
+				if(root.data.IsWin() == X):
+					print("Computer Win The Game")
+					break
+				elif(root.data.IsWin() == O):
+					print("You Win The Game")
+					break
+				elif(root.data.IsWin() == 1):
+					print("Wow You and Computer Equals")
+					break
+			else:
+				print("Computers Turn Let him thinking...")
+				makeTree(root,0)
+				decision(root)
+				root.data.show()
+				root.childrens = []
 
 
