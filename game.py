@@ -77,12 +77,29 @@ def makeTree(root,lvl):
 			makeTree(root.childrens[x],lvl+1)
 
 
+def decision(root):
+	scores = []
+	for b in range(0,len(root.childrens)):
+		scores.append(root.childrens[b].score)
+	maxim = max(scores);
+	print (maxim)
+	for n in range(0,len(root.childrens)):
+		if(root.childrens[n].score == maxim):
+			for j in range(0,len(root.data.homes)):
+				root.data.homes[j] = root.childrens[n].data.homes[j]
+				break
+			break
 
 
 
+"""
+for test
 root.data.homes[5] = X
 root.data.homes[4] = O
 makeTree(root,0)
-for i in range(0,9):
+root.data.show()
+for i in range(0,len(root.childrens)):
 	print(root.childrens[i].score)
-
+decision(root)
+root.data.show()
+"""
