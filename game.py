@@ -2,6 +2,7 @@ X = "X"
 O = "O"
 EMP = " "
 NULL = "NULL"
+import random
 
 def IsZog(x):
 	if(x%2 == 0):
@@ -22,11 +23,19 @@ class plane:
 			print("--------------------------------------")
 			print("   "+self.homes[6]+"    |     "+self.homes[7]+"       |     "+self.homes[8]+"    ")
 			print("--------------------------------------")
+	def CheckAllHomeIsFUll(self):
+		for i in range(0,9):
+			if(self.homes[i] == EMP):
+				return False
+		return True
+
 	def IsWin(self):
 		if(self.homes[0]==self.homes[4]==self.homes[8]==X or self.homes[2]==self.homes[4]==self.homes[6]==X or self.homes[0]==self.homes[1]==self.homes[2]==X or self.homes[3]==self.homes[4]==self.homes[5]==X or self.homes[6]==self.homes[7]==self.homes[8]==X or self.homes[0]==self.homes[3]==self.homes[6]==X or self.homes[1]==self.homes[4]==self.homes[7]==X or self.homes[2]==self.homes[5]==self.homes[8]==X):
 			return X
 		elif(self.homes[0]==self.homes[4]==self.homes[8]==O or self.homes[2]==self.homes[4]==self.homes[6]==O or self.homes[0]==self.homes[1]==self.homes[2]==O or self.homes[3]==self.homes[4]==self.homes[5]==O or self.homes[6]==self.homes[7]==self.homes[8]==O or self.homes[0]==self.homes[3]==self.homes[6]==O or self.homes[1]==self.homes[4]==self.homes[7]==O or self.homes[2]==self.homes[5]==self.homes[8]==O):
 			return O
+		elif(self.CheckAllHomeIsFUll()):
+			return 1
 		else:
 			return 0
 class branch():
@@ -85,12 +94,11 @@ def decision(root):
 	print (maxim)
 	for n in range(0,len(root.childrens)):
 		if(root.childrens[n].score == maxim):
-			for j in range(0,len(root.data.homes)):
+			print(root.childrens[n].data.homes)
+			for j in range(0,9):
 				root.data.homes[j] = root.childrens[n].data.homes[j]
-				break
 			break
 
-playground = plane()
 
 print(" You Are O and your Oppenent(Computer) Is X")
 print("--------------house numbers --------------")
@@ -107,31 +115,35 @@ if(fpstart == 1):
 if(fpstart == 2):
 	fpstart = O
 if(fpstart == X):
-	playground.homes[4] = X
-	playground.show()
+	root.data.homes[random.randint(0,8)] = X
+	root.data.show()
 while True:
+	if(root.data.IsWin() != 0):
+				if(root.data.IsWin() == X):
+					print("Computer Win The Game")
+					break
+				elif(root.data.IsWin() == O):
+					print("You Win The Game")
+					break
+				elif(root.data.IsWin() == 1):
+					print("Wow You and Computer Equals")
+					break
+
+
 	place = int(raw_input("Is Your Turn Select Place:"))
 	place = place-1
 	if(place>9):
 			print("WTF? Select Smaller ")
 	else:
-		if(playground.homes[place]!= EMP):
+		if(root.data.homes[place]!= EMP):
 			print("This House Is Full Select Another")
 		else:
-			playground.homes[place] = O
-			playground.show()
+			root.data.homes[place] = O
+			root.data.show()
+			print("Computers Turn Let him thinking...")
+			makeTree(root,0)
+			decision(root)
+			root.data.show()
+			root.childrens = []
 
 
-
-
-"""
-for test
-root.data.homes[5] = X
-root.data.homes[4] = O
-makeTree(root,0)
-root.data.show()
-for i in range(0,len(root.childrens)):
-	print(root.childrens[i].score)
-decision(root)
-root.data.show()
-"""
