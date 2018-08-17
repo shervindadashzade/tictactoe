@@ -2,6 +2,13 @@ X = "X"
 O = "O"
 EMP = " "
 NULL = "NULL"
+
+def IsZog(x):
+	if(x%2 == 0):
+		return True
+	else:
+		return False
+
 class plane:
 	def __init__(self):
 		self.homes = []
@@ -22,13 +29,43 @@ class plane:
 			return O
 		else:
 			return 0
-
 class branch():
 	def __init__(self):
-		self.father = NULL
 		self.childrens = []
-		self.state = NULL
+		self.data = NULL
+		self.father = NULL
+		self.lvl = NULL
 
 
 
-	
+playground = plane()
+
+root = branch()
+root.data = playground
+
+def makeTree(root,lvl):
+	for i in range(0,9):
+		if(root.data.homes[i] == EMP):
+			node = branch()
+			state = plane()
+			node.father = root
+			#set homes from last
+			#cant set directly (this loop do it)"
+			for c in range(0,9):
+				state.homes[c] = root.data.homes[c]
+			#ok
+			node.data = state
+			if(IsZog(lvl)):
+				node.data.homes[i] = X
+			else:
+				node.data.homes[i] = O
+			node.lvl = lvl
+			root.childrens.append(node)
+			#Ok
+	for x in range(0,len(root.childrens)):
+		makeTree(root.childrens[x],lvl+1)
+
+
+
+
+makeTree(root,0)
