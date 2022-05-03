@@ -103,8 +103,8 @@ def decision(root):
 			break
 
 
-print(" You Are O and your Oppenent(Computer) Is X")
-print("--------------house numbers --------------")
+print(" You are O and your opponent(Computer) is X")
+print("--------------House numbers --------------")
 print("     1       |       2      |        3    ")
 print("------------------------------------------")
 print("     4       |       5      |        6    ")
@@ -112,7 +112,7 @@ print("------------------------------------------")
 print("     7       |       8      |        9    ")
 print("------------------------------------------")
 print(" ")
-fpstart = int(input("Enter Who First Start 1:Computer 2:you : "))
+fpstart = int(input("Enter who should first start the game 1:Computer 2:You : "))
 if(fpstart == 1):
 	fpstart = X
 if(fpstart == 2):
@@ -123,38 +123,38 @@ if(fpstart == X):
 while True:
 	if(root.data.IsWin() != 0):
 				if(root.data.IsWin() == X):
-					print("Computer Win The Game")
+					print("Computer won the game.")
 					break
 				elif(root.data.IsWin() == O):
-					print("You Win The Game")
+					print("You won the game, good job.")
 					break
 				elif(root.data.IsWin() == 1):
-					print("Wow You and Computer Equals")
+					print("Woow, you and computer got equaled.")
 					break
 
 
-	place = int(input("Is Your Turn Select Place:"))
+	place = int(input("It is your turn, please enter the house number:"))
 	place = place-1
 	if(place>9):
-			print("WTF? Select Smaller ")
+			print("House number can not be greater than 9")
 	else:
 		if(root.data.homes[place]!= EMP):
-			print("This House Is Full Select Another")
+			print("Man, you are selecting a filled house.")
 		else:
 			root.data.homes[place] = O
 			root.data.show()
 			if(root.data.IsWin() != 0):
 				if(root.data.IsWin() == X):
-					print("Computer Win The Game")
+					print("Computer won the game.")
 					break
 				elif(root.data.IsWin() == O):
-					print("You Win The Game")
+					print("You won the game.")
 					break
 				elif(root.data.IsWin() == 1):
-					print("Wow You and Computer Equals")
+					print("Woow, you and computer got equaled.")
 					break
 			else:
-				print("Computers Turn Let him thinking...")
+				print("Computer's turn, let it thinking...")
 				makeTree(root,0)
 				decision(root)
 				root.data.show()
