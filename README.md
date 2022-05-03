@@ -7,3 +7,4 @@ There are two versions of the game, one is compatible with Python version 2, and
 
 In the following, you can see some screenshots of the application.
 
+![](https://raw.githubusercontent.com/shervindadashzade/tictactoe/master/screenshots/1.png)
